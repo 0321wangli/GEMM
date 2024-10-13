@@ -1,0 +1,20 @@
+256 matmul 0.064456
+256 matmul_unrolled_2 0.044005
+256 matmul_unrolled_4 0.030622
+256 matmul_unrolled_8 0.025518
+256 matmul 0.064321
+256 matmul_unrolled_2 0.051024
+256 matmul_unrolled_4 0.039157
+256 matmul_unrolled_8 0.035106
+
+
+
+
+256 matmul 0.073682
+256 matmul_unrolled_2 0.054163
+256 matmul_unrolled_4 0.039249
+256 matmul_unrolled_8 0.034573
+256 matmul 0.076702
+256 matmul_unrolled_2 0.055597
+256 matmul_unrolled_4 0.039801
+256 matmul_unrolled_8 0.033179
