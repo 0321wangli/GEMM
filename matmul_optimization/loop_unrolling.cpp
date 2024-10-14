@@ -1,61 +1,7 @@
-// g++ matmul.cpp -o matmul -std=c++17 -O3 -Wall && ./matmul
-
-#include <sys/time.h>
-#include <cassert>
 #include <cstring>
-#include <iostream>
+#include "common.h"
 
-double get_time() {
-    struct timeval tv;
-    gettimeofday(&tv, nullptr);
-    return tv.tv_sec + 1e-6 * tv.tv_usec;
-}
-
-constexpr int n = 256;
-int A[n][n];
-int B[n][n];
-int BT[n][n];
-int AT[n][n];
-int C[n][n];
-int C_groundtruth[n][n];
-
-void init() {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            A[i][j] = rand();
-            B[i][j] = rand();
-            C_groundtruth[i][j] = 0;
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                C_groundtruth[i][j] += A[i][k] * B[k][j];
-            }
-        }
-    }
-}
-
-void test() {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            assert(C[i][j] == C_groundtruth[i][j]);
-        }
-    }
-}
-
-void matmul() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                C[i][j] += A[i][k] * B[k][j];
-            }
-        }
-    }
-}
-
-void matmul_unrolled_2() {
+void matmul_unrolling_2() {
     memset(C, 0, sizeof(C));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -66,7 +12,7 @@ void matmul_unrolled_2() {
     }
 }
 
-void matmul_unrolled_4() {
+void matmul_unrolling_4() {
     memset(C, 0, sizeof(C));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -77,7 +23,7 @@ void matmul_unrolled_4() {
     }
 }
 
-void matmul_unrolled_8() {
+void matmul_unrolling_8() {
     memset(C, 0, sizeof(C));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -89,7 +35,7 @@ void matmul_unrolled_8() {
     }
 }
 
-void matmul_unrolled_16() {
+void matmul_unrolling_16() {
     memset(C, 0, sizeof(C));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -103,7 +49,7 @@ void matmul_unrolled_16() {
     }
 }
 
-void matmul_unrolled_32() {
+void matmul_unrolling_32() {
     memset(C, 0, sizeof(C));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -121,7 +67,7 @@ void matmul_unrolled_32() {
     }
 }
 
-void matmul_unrolled_64() {
+void matmul_unrolling_64() {
     memset(C, 0, sizeof(C));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -147,7 +93,7 @@ void matmul_unrolled_64() {
     }
 }
 
-void matmul_unrolled_128() {
+void matmul_unrolling_128() {
     memset(C, 0, sizeof(C));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -189,262 +135,3 @@ void matmul_unrolled_128() {
         }
     }
 }
-
-void matmul_ikj() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int k = 0; k < n; k++) {
-            for (int j = 0; j < n; j++) {
-                C[i][j] += A[i][k] * B[k][j];
-            }
-        }
-    }
-}
-
-void matmul_ikj_unrolled_2() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int k = 0; k < n; k++) {
-            int Aik = A[i][k];  // 提前加载 A[i][k]
-            int j;
-            for (j = 0; j <= n - 2; j += 2) {
-                C[i][j] += Aik * B[k][j];
-                C[i][j + 1] += Aik * B[k][j + 1];
-            }
-            for (; j < n; j++) {
-                C[i][j] += Aik * B[k][j];
-            }
-        }
-    }
-}
-
-void matmul_ikj_unrolled_4() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int k = 0; k < n; k++) {
-            int Aik = A[i][k];  // 提前加载 A[i][k]
-            int j;
-            for (j = 0; j <= n - 4; j += 4) {
-                C[i][j] += Aik * B[k][j];
-                C[i][j + 1] += Aik * B[k][j + 1];
-                C[i][j + 2] += Aik * B[k][j + 2];
-                C[i][j + 3] += Aik * B[k][j + 3];
-            }
-            for (; j < n; j++) {
-                C[i][j] += Aik * B[k][j];
-            }
-        }
-    }
-}
-
-void matmul_ikj_unrolled_8() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int k = 0; k < n; k++) {
-            int Aik = A[i][k];  // 提前加载 A[i][k]
-            int j;
-            for (j = 0; j <= n - 8; j += 8) {
-                C[i][j] += Aik * B[k][j];
-                C[i][j + 1] += Aik * B[k][j + 1];
-                C[i][j + 2] += Aik * B[k][j + 2];
-                C[i][j + 3] += Aik * B[k][j + 3];
-                C[i][j + 4] += Aik * B[k][j + 4];
-                C[i][j + 5] += Aik * B[k][j + 5];
-                C[i][j + 6] += Aik * B[k][j + 6];
-                C[i][j + 7] += Aik * B[k][j + 7];
-            }
-            for (; j < n; j++) {
-                C[i][j] += Aik * B[k][j];
-            }
-        }
-    }
-}
-
-void matmul_AT() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            AT[i][j] = A[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                C[i][j] += AT[k][i] * B[k][j];
-            }
-        }
-    }
-}
-
-void matmul_AT_unrolled_2() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            AT[i][j] = A[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k += 2) {
-                C[i][j] += AT[k][i] * B[k][j] + AT[k + 1][i] * B[k + 1][j];
-            }
-        }
-    }
-}
-
-void matmul_AT_unrolled_4() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            AT[i][j] = A[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k += 4) {
-                C[i][j] += AT[k][i] * B[k][j] + AT[k + 1][i] * B[k + 1][j] + AT[k + 2][i] * B[k + 2][j] + AT[k + 3][i] * B[k + 3][j];
-            }
-        }
-    }
-}
-
-void matmul_AT_unrolled_8() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            AT[i][j] = A[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k += 8) {
-                C[i][j] += AT[k][i] * B[k][j] + AT[k + 1][i] * B[k + 1][j] + AT[k + 2][i] * B[k + 2][j] + AT[k + 3][i] * B[k + 3][j] +
-                           AT[k + 4][i] * B[k + 4][j] + AT[k + 5][i] * B[k + 5][j] + AT[k + 6][i] * B[k + 6][j] + AT[k + 7][i] * B[k + 7][j];
-            }
-        }
-    }
-}
-
-void matmul_BT() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            BT[i][j] = B[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                C[i][j] += A[i][k] * BT[j][k];
-            }
-        }
-    }
-}
-
-void matmul_BT_unrolled_2() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            BT[i][j] = B[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k += 2) {
-                C[i][j] += A[i][k] * BT[j][k] + A[i][k + 1] * BT[j][k + 1];
-            }
-        }
-    }
-}
-
-void matmul_BT_unrolled_4() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            BT[i][j] = B[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k += 4) {
-                C[i][j] += A[i][k] * BT[j][k] + A[i][k + 1] * BT[j][k + 1] + A[i][k + 2] * BT[j][k + 2] + A[i][k + 3] * BT[j][k + 3];
-            }
-        }
-    }
-}
-
-void matmul_BT_unrolled_8() {
-    memset(C, 0, sizeof(C));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            BT[i][j] = B[j][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k += 8) {
-                C[i][j] += A[i][k] * BT[j][k] + A[i][k + 1] * BT[j][k + 1] + A[i][k + 2] * BT[j][k + 2] + A[i][k + 3] * BT[j][k + 3] +
-                           A[i][k + 4] * BT[j][k + 4] + A[i][k + 5] * BT[j][k + 5] + A[i][k + 6] * BT[j][k + 6] + A[i][k + 7] * BT[j][k + 7];
-            }
-        }
-    }
-}
-
-void run_test(void (*matmul_func)(), const char* func_name) {
-    float avg_time = 0.0f;
-    init();
-    for (int K = 0; K < 32; K++) {
-        auto t = get_time();
-        matmul_func();
-        test();
-        printf("%f\n", get_time() - t);
-        avg_time += get_time() - t;
-    }
-    printf("%s Avg Time for Calculation: %f\n", func_name, avg_time / 32);
-    // write into ../report/q1.txt
-    FILE* fp = fopen("../report/q1.txt", "a");
-    fprintf(fp, "%d %s %f\n", n, func_name, avg_time / 32);
-    fclose(fp);
-}
-
-int main() {
-    run_test(matmul, "matmul");
-    // run_test(matmul_AT, "matmul_AT");
-    // run_test(matmul_BT, "matmul_BT");
-    // run_test(matmul_ikj, "matmul_ikj");
-    run_test(matmul_unrolled_2, "matmul_unrolled_2");
-    run_test(matmul_unrolled_4, "matmul_unrolled_4");
-    run_test(matmul_unrolled_8, "matmul_unrolled_8");
-    // run_test(matmul_unrolled_16, "matmul_unrolled_16");
-    // run_test(matmul_unrolled_32, "matmul_unrolled_32");
-    // run_test(matmul_unrolled_64, "matmul_unrolled_64");
-    // run_test(matmul_unrolled_128, "matmul_unrolled_128");
-    // run_test(matmul_ikj_unrolled_2, "matmul_ikj_unrolled_2");
-    // run_test(matmul_ikj_unrolled_4, "matmul_ikj_unrolled_4");
-    // run_test(matmul_ikj_unrolled_8, "matmul_ikj_unrolled_8");
-    // run_test(matmul_AT_unrolled_2, "matmul_AT_unrolled_2");
-    // run_test(matmul_AT_unrolled_4, "matmul_AT_unrolled_4");
-    // run_test(matmul_AT_unrolled_8, "matmul_AT_unrolled_8");
-    // run_test(matmul_BT_unrolled_2, "matmul_BT_unrolled_2");
-    // run_test(matmul_BT_unrolled_4, "matmul_BT_unrolled_4");
-    // run_test(matmul_BT_unrolled_8, "matmul_BT_unrolled_8");
-    return 0;
-}
-
-// int main() {
-//   float avg_time = 0.0f;
-
-//   init();
-//   for (int K = 0; K < 32; K++) {
-//     auto t = get_time();
-//     matmul();
-//     // matmul_AT();
-//     // matmul_BT();
-//     // matmul_ikj();
-//     test();
-//     printf("%f\n", get_time() - t);
-//     avg_time += get_time() - t;
-//   }
-//   printf("matmul Avg Time for Calculation: %f\n", avg_time / 32);
-//   return 0;
-// }

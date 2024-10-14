@@ -1,0 +1,231 @@
+256 matmul 0.064456
+256 matmul_unrolled_2 0.044005
+256 matmul_unrolled_4 0.030622
+256 matmul_unrolled_8 0.025518
+256 matmul 0.064321
+256 matmul_unrolled_2 0.051024
+256 matmul_unrolled_4 0.039157
+256 matmul_unrolled_8 0.035106
+
+
+
+
+256 matmul 0.073682
+256 matmul_unrolled_2 0.054163
+256 matmul_unrolled_4 0.039249
+256 matmul_unrolled_8 0.034573
+256 matmul 0.076702
+256 matmul_unrolled_2 0.055597
+256 matmul_unrolled_4 0.039801
+256 matmul_unrolled_8 0.033179
+256 matmul 0.003476
+256 matmul_ikj 0.003373
+256 matmul_AT 0.003751
+256 matmul_BT 0.005572
+256 matmul 0.063526
+256 matmul_ikj 0.101253
+256 matmul_AT 0.076400
+256 matmul_BT 0.089637
+256 matmul 0.002270
+256 matmul_unrolled_2 0.002353
+256 matmul_unrolled_4 0.002586
+256 matmul_unrolled_8 0.002818
+256 matmul 0.002761
+256 matmul_AT 0.003286
+256 matmul_BT 0.005571
+256 matmul_ikj 0.003398
+
+
+
+256 matmul 0.002202
+256 matmul_AT 0.002507
+256 matmul_BT 0.003207
+256 matmul_ikj 0.002843
+
+
+
+
+256 matmul 0.002463
+256 matmul_AT 0.002639
+256 matmul_BT 0.003393
+256 matmul_ikj 0.003091
+
+
+
+code
+256 matmul 0.064304
+256 matmul_ikj 0.083135
+256 matmul_AT 0.073358
+256 matmul_BT 0.084217
+
+code O3
+256 matmul 0.002311  0.002391
+256 matmul_ikj 0.002464  0.002195
+256 matmul_AT 0.003052
+256 matmul_BT 0.003331
+
+test
+256 matmul 0.063183
+256 matmul_AT 0.070765
+256 matmul_BT 0.076357
+256 matmul_ikj 0.093050
+
+test O3
+256 matmul 0.002500
+256 matmul_AT 0.003194
+256 matmul_BT 0.003560
+256 matmul_ikj 0.003033
+
+
+1024 matmul 0.163355
+1024 matmul_AT 0.234918
+1024 matmul_BT 0.245279
+1024 matmul_ikj 0.212728
+
+
+1024 matmul 0.160515
+1024 matmul_ikj 0.178880
+1024 matmul_AT 0.205171
+1024 matmul_BT 0.218998
+
+
+512 matmul 0.570767
+512 matmul_unrolled_2 0.424691
+512 matmul_unrolled_4 0.296932
+512 matmul_unrolled_8 0.241860
+512 matmul_unrolled_16 0.256291
+512 matmul_unrolled_64 0.251230
+512 matmul_unrolled_128 0.275961
+
+
+512 matmul 0.640217
+512 matmul_unrolled_2 0.385954
+512 matmul_unrolled_4 0.295119
+512 matmul_unrolled_8 0.248954
+512 matmul_unrolled_16 0.258268
+512 matmul_unrolled_32 0.245657
+512 matmul_unrolled_64 0.243853
+512 matmul_unrolled_128 0.247965
+
+
+512 matmul 0.536364
+512 matmul_unrolled_2 0.373303
+512 matmul_unrolled_4 0.281082
+512 matmul_unrolled_8 0.232351
+512 matmul_unrolled_16 0.236407
+512 matmul_unrolled_32 0.228432
+512 matmul_unrolled_64 0.222557
+512 matmul_unrolled_128 0.228363
+
+
+512 matmul 0.547388
+512 matmul_unrolled_2 0.391139
+512 matmul_unrolled_4 0.305338
+512 matmul_unrolled_8 0.262043
+512 matmul_unrolled_16 0.270858
+512 matmul_unrolled_32 0.269703
+512 matmul_unrolled_64 0.259718
+512 matmul_unrolled_128 0.258553
+
+
+512 matmul 0.560463
+512 matmul_unrolling_2 0.386103
+512 matmul_unrolling_4 0.285427
+512 matmul_unrolling_8 0.240252
+512 matmul_unrolling_16 0.266381
+512 matmul_unrolling_32 0.261514
+512 matmul_unrolling_64 0.242585
+512 matmul_unrolling_128 0.245233
+512 matmul_tiling 0.662654
+512 matmul 0.495370
+512 matmul_tiling 0.579232
+512 matmul_tiling_unrolling_4 0.244269
+512 matmul_tiling_unrolling_8 0.213040
+512 matmul_tiling_unrolling_16 0.194280
+
+
+
+tile_size32:
+1024 matmul 5.684862
+1024 matmul_unrolling_2 3.975587
+1024 matmul_unrolling_4 3.721770
+1024 matmul_unrolling_8 3.441211
+1024 matmul_unrolling_16 3.343935
+1024 matmul_unrolling_32 3.209387
+1024 matmul_unrolling_64 2.917562
+1024 matmul_unrolling_128 2.928791
+1024 matmul_tiling 4.549129
+1024 matmul_tiling_unrolling_4 2.093553
+1024 matmul_tiling_unrolling_8 2.097934
+1024 matmul_tiling_unrolling_16 1.607644
+1024 matmul_tiling_unrolling_32 1.532573
+
+tile_size64:
+1024 matmul 5.112392
+1024 matmul_unrolling_2 3.642862
+1024 matmul_unrolling_4 3.042969
+1024 matmul_unrolling_8 2.900603
+1024 matmul_unrolling_16 2.901729
+1024 matmul_unrolling_32 2.825706
+1024 matmul_unrolling_64 2.762956
+1024 matmul_unrolling_128 2.784694
+1024 matmul_tiling 4.573600
+1024 matmul_tiling_unrolling_4 1.983037
+1024 matmul_tiling_unrolling_8 1.756418
+1024 matmul_tiling_unrolling_16 1.627058
+1024 matmul_tiling_unrolling_32 1.526255
+
+tile_size16:
+1024 matmul 5.552725
+1024 matmul_tiling 4.864567
+1024 matmul_tiling_unrolling_4 2.243798
+1024 matmul_tiling_unrolling_8 1.797037
+1024 matmul_tiling_unrolling_16 1.847504
+1024 matmul_unrolling_2 4.181434
+1024 matmul_unrolling_4 3.181741
+1024 matmul_unrolling_8 3.155161
+1024 matmul_unrolling_16 3.018015
+1024 matmul_unrolling_32 3.353964
+1024 matmul_unrolling_64 3.281986
+1024 matmul_unrolling_128 3.080143
+
+tile_size128:
+1024 matmul 5.248661
+1024 matmul_tiling 4.892299
+1024 matmul_tiling_unrolling_4 2.288973
+1024 matmul_tiling_unrolling_8 2.162145
+1024 matmul_tiling_unrolling_16 2.124212
+1024 matmul_tiling_unrolling_32 1.941382
+
+tile_size256:
+1024 matmul 5.141362
+1024 matmul_tiling 4.659591
+1024 matmul_tiling_unrolling_4 2.147287
+1024 matmul_tiling_unrolling_8 2.161953
+1024 matmul_tiling_unrolling_16 1.956806
+1024 matmul_tiling_unrolling_32 1.943091
+
+
+256 matmul 0.002505
+256 matmul_ikj 0.002419
+256 matmul_AT 0.002768
+256 matmul_BT 0.003114
+512 matmul 0.021844
+512 matmul_ikj 0.021873
+512 matmul_AT 0.026065
+512 matmul_BT 0.033105
+1024 matmul 0.247788
+1024 matmul_ikj 0.205610
+1024 matmul_AT 0.195674
+1024 matmul_BT 0.303046
+
+
+1024 matmul_tiling_unrolling_4 2.222472
+1024 matmul_tiling_unrolling_8 2.019921
+1024 matmul_tiling_unrolling_16 1.887671
+1024 matmul_tiling_unrolling_32 1.705335
+1024 matmul_unrolling_2 4.034471
+1024 matmul_unrolling_4 3.602905
+1024 matmul_unrolling_8 3.480017
+1024 matmul_unrolling_16 3.323557
+1024 matmul_unrolling_32 3.165145
